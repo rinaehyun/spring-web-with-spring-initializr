@@ -1,13 +1,9 @@
 package com.example.spring_web_with_spring_initializr;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -28,7 +24,7 @@ public class HelloWorldController {
     }
 
     @PostMapping("/messages")
-    public String storeMessage(@RequestBody ObjectNode objectNode) {
+    public List<Message> storeMessage(@RequestBody ObjectNode objectNode) {
 
         String name = objectNode.get("name").asText();
         String message = objectNode.get("message").asText();
@@ -37,6 +33,7 @@ public class HelloWorldController {
         Message message1 = new Message(name, message, id);
         List<Message> messages = List.of(message1);
         System.out.println(messages);
-        return messages.toString();
+        return messages;
     }
+
 }
