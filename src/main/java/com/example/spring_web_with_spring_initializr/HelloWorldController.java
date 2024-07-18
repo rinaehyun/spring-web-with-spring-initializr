@@ -1,6 +1,5 @@
 package com.example.spring_web_with_spring_initializr;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,6 +38,12 @@ public class HelloWorldController {
 
     @GetMapping("/messages")
     public List<Message> getMessages() {
+        return this.messages;
+    }
+
+    @DeleteMapping("/messages/{id}")
+    public List<Message> getMessages(@PathVariable String id) {
+        this.messages.removeIf(message -> message.getId().equals(id));
         return this.messages;
     }
 }
