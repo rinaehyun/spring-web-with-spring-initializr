@@ -6,11 +6,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class HelloWorldController {
+public class ApiController {
 
     private final List<Message> messages;
 
-    public HelloWorldController(List<Message> messages) {
+    public ApiController(List<Message> messages) {
         this.messages = messages;
     }
 
@@ -29,7 +29,6 @@ public class HelloWorldController {
     }
 
     @PostMapping("/messages")
-    @ResponseBody
     public List<Message> storeMessages(@RequestBody Message message) {
         this.messages.add(message);
         System.out.println(this.messages);
