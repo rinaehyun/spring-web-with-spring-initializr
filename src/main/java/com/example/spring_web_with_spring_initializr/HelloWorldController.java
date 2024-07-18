@@ -24,14 +24,8 @@ public class HelloWorldController {
     }
 
     @PostMapping("/messages")
-    public List<Message> storeMessage(@RequestBody ObjectNode objectNode) {
-
-        String name = objectNode.get("name").asText();
-        String message = objectNode.get("message").asText();
-        String id = objectNode.get("id").asText();
-
-        Message message1 = new Message(name, message, id);
-        List<Message> messages = List.of(message1);
+    public List<Message> storeMessage(@RequestBody Message message) {
+        List<Message> messages = List.of(message);
         System.out.println(messages);
         return messages;
     }
