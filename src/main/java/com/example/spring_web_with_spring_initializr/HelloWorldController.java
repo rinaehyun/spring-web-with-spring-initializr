@@ -9,6 +9,12 @@ import java.util.List;
 @RequestMapping("/api")
 public class HelloWorldController {
 
+    private final List<Message> messages;
+
+    public HelloWorldController(List<Message> messages) {
+        this.messages = messages;
+    }
+
     @GetMapping("/hello")
     public String getGreetings() {
         String greeting = "Hello, World!";
@@ -24,10 +30,15 @@ public class HelloWorldController {
     }
 
     @PostMapping("/messages")
-    public List<Message> storeMessage(@RequestBody Message message) {
-        List<Message> messages = List.of(message);
-        System.out.println(messages);
-        return messages;
+    @ResponseBody
+    public List<Message> storeMessages(@RequestBody Message message) {
+        this.messages.add(message);
+        System.out.println(this.messages);
+        return this.messages;
     }
 
+    @GetMapping("/messages")
+    public List<Message> getMessages() {
+        return this.messages;
+    }
 }
