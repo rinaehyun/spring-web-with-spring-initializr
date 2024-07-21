@@ -29,4 +29,16 @@ public class AsterixController {
     public void deleteCharacter(@PathVariable String id) {
         characterRepo.deleteById(id);
     }
+
+    @PutMapping("/characters/{id}")
+    public Character updateCharater(@PathVariable String id, @RequestBody Character newCharacter) {
+        characterRepo.findById(id)
+                .map(character -> {
+                    character.withName(newCharacter.name());
+                    character.withAge(newCharacter.age());
+                    character.withProfession(newCharacter.profession());
+                    return characterRepo.save(character);
+                });
+        return characterRepo.save(newCharacter);
+    }
 }
