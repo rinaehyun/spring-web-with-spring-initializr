@@ -1,8 +1,6 @@
 package com.example.spring_web_with_spring_initializr.AsterixAPI;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,5 +18,15 @@ public class AsterixController {
     public List<Character> getAllCharacters() {
         List<Character> allCharacters = characterRepo.findAll();
         return allCharacters;
+    }
+
+    @PostMapping("/character")
+    public Character createCharacter(@RequestBody Character character) {
+        return characterRepo.save(character);
+    }
+
+    @DeleteMapping("/character/{id}")
+    public void deleteCharacter(@PathVariable String id) {
+        characterRepo.deleteById(id);
     }
 }
