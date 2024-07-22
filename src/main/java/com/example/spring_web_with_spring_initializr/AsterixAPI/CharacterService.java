@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -20,8 +21,14 @@ public class CharacterService {
         return characterRepo.findById(id);
     }
 
-    public Character saveCharacter(Character character) {
-        return characterRepo.save(character);
+    public Character saveCharacter(NewCharacterDto character) {
+        Character characterToSave = new Character(
+                UUID.randomUUID().toString(),
+                character.name(),
+                character.age(),
+                character.profession()
+        );
+        return characterRepo.save(characterToSave);
     }
 
     public void deleteCharacterById(String id) {
