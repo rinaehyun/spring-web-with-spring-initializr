@@ -18,8 +18,8 @@ public class CharacterService {
         return characterRepo.findAll();
     }
 
-    public Optional<Character> findCharacterById(String id) {
-        return characterRepo.findById(id);
+    public Character findCharacterById(String id) {
+        return characterRepo.findById(id).orElseThrow();
     }
 
     public Character saveCharacter(NewCharacterDto character) {

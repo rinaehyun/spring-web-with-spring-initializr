@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -16,7 +17,7 @@ class CharacterServiceTest {
 
     @Test
     void findAllCharactersTest_EmptyList() {
-        // GIVNE
+        // GIVEN
 
         // WHEN
         List<Character> actual = characterService.findAllCharacters();
@@ -28,7 +29,7 @@ class CharacterServiceTest {
 
     @Test
     void findAllCharactersTest() {
-        // GIVNE
+        // GIVEN
         Character c1 = new Character("123", "Asterix", 30, "Krieger");
         Character c2 = new Character("456", "Obelix", 35, "Lieferant");
         List<Character> products = List.of(c1, c2);
@@ -46,6 +47,20 @@ class CharacterServiceTest {
 
     @Test
     void findCharacterByIdTest() {
+        // GIVEN
+        Character c1 = new Character("123", "Asterix", 30, "Krieger");
+        Character c2 = new Character("456", "Obelix", 35, "Lieferant");
+        List<Character> products = List.of(c1);
+        when(characterRepo.findById("123")).thenReturn(Optional.of(c1));
+
+        // WHEN
+        Character actual = characterService.findCharacterById("123");
+
+        // THEN
+        Character expected = new Character("123", "Asterix", 30, "Krieger");
+
+        verify(characterRepo, times(1)).findById("123");
+        assertEquals(expected, actual);
     }
 
     @Test
