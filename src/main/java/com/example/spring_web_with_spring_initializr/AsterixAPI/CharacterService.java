@@ -12,6 +12,7 @@ import java.util.UUID;
 public class CharacterService {
 
     private final CharacterRepo characterRepo;
+    private final IdService idService;
 
     public List<Character> findAllCharacters() {
         return characterRepo.findAll();
@@ -23,7 +24,7 @@ public class CharacterService {
 
     public Character saveCharacter(NewCharacterDto character) {
         Character characterToSave = new Character(
-                UUID.randomUUID().toString(),
+                idService.randomId(),
                 character.name(),
                 character.age(),
                 character.profession()
