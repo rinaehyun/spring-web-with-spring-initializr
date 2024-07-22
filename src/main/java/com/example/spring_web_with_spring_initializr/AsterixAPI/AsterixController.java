@@ -1,5 +1,6 @@
 package com.example.spring_web_with_spring_initializr.AsterixAPI;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -7,23 +8,20 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/asterix")
+@RequiredArgsConstructor
 public class AsterixController {
 
-    private final CharacterRepo characterRepo;
-
-    public AsterixController(CharacterRepo characterRepo) {
-        this.characterRepo = characterRepo;
-    }
+    private final CharacterService characterService;
 
     @GetMapping("/characters")
     public List<Character> getAllCharacters() {
-        List<Character> allCharacters = characterRepo.findAll();
+        List<Character> allCharacters = characterService.findAllCharacters();
         return allCharacters;
     }
 
     @GetMapping("/character/{id}")
     public Optional<Character> getCharacterById(@PathVariable String id) {
-        return characterRepo.findById(id);
+        return characterService.findCharacterById(id);
     }
 
     @GetMapping("/character")
@@ -38,23 +36,16 @@ public class AsterixController {
 
     @PostMapping("/character")
     public Character createCharacter(@RequestBody Character character) {
-        return characterRepo.save(character);
+        return characterService.saveCharacter(character);
     }
 
     @DeleteMapping("/character/{id}")
     public void deleteCharacter(@PathVariable String id) {
-        characterRepo.deleteById(id);
+        characterService.deleteCharacterById(id);
     }
 
     @PutMapping("/characters/{id}")
-    public Character updateCharater(@PathVariable String id, @RequestBody Character newCharacter) {
-        characterRepo.findById(id)
-                .map(character -> {
-                    character.withName(newCharacter.name());
-                    character.withAge(newCharacter.age());
-                    character.withProfession(newCharacter.profession());
-                    return characterRepo.save(character);
-                });
-        return characterRepo.save(newCharacter);
+    public Character updateCharacter(@PathVariable String id, @RequestBody Character newCharacter) {
+        return characterService.updateCharacterById(id, newCharacter);
     }
 }
