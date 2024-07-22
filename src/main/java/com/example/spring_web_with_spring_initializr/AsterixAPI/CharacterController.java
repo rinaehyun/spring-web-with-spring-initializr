@@ -9,7 +9,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/asterix")
 @RequiredArgsConstructor
-public class AsterixController {
+public class CharacterController {
 
     private final CharacterService characterService;
 
