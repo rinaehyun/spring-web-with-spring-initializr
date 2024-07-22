@@ -3,6 +3,7 @@ package com.example.spring_web_with_spring_initializr.AsterixAPI;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/asterix")
@@ -18,6 +19,21 @@ public class AsterixController {
     public List<Character> getAllCharacters() {
         List<Character> allCharacters = characterRepo.findAll();
         return allCharacters;
+    }
+
+    @GetMapping("/character/{id}")
+    public Optional<Character> getCharacterById(@PathVariable String id) {
+        return characterRepo.findById(id);
+    }
+
+    @GetMapping("/character")
+    public String getCharacterByProperties(
+            @RequestParam(value = "name") String name
+            //@RequestParam(value = "age") int age
+            //@RequestParam("profession") String profession
+    ) {
+        return "Hello";
+        //return characterRepo.findByName(name);
     }
 
     @PostMapping("/character")
