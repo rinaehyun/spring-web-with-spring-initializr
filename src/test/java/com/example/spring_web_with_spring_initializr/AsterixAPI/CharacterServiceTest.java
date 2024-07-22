@@ -49,8 +49,6 @@ class CharacterServiceTest {
     void findCharacterByIdTest() {
         // GIVEN
         Character c1 = new Character("123", "Asterix", 30, "Krieger");
-        Character c2 = new Character("456", "Obelix", 35, "Lieferant");
-        List<Character> products = List.of(c1);
         when(characterRepo.findById("123")).thenReturn(Optional.of(c1));
 
         // WHEN
@@ -65,9 +63,29 @@ class CharacterServiceTest {
 
     @Test
     void deleteCharacterByIdTest() {
+        // GIVEN
+
+        // WHEN
+
+        // THEN
+
     }
 
     @Test
     void updateCharacterByIdTest() {
+        // GIVEN
+        Character c1 = new Character("123", "Asterix", 30, "Krieger");
+        Character updatedCharacter = new Character("123", "Obelix", 25, "Krieger");
+
+        when(characterRepo.findById("123")).thenReturn(Optional.of(c1));
+        when(characterRepo.save(updatedCharacter)).thenReturn(updatedCharacter);
+
+        // WHEN
+        Character actual = characterService.updateCharacterById("123", updatedCharacter);
+
+        // THEN
+        verify(characterRepo, times(1)).findById("123");
+        verify(characterRepo, times(1)).save(updatedCharacter);
+        assertEquals(updatedCharacter, actual);
     }
 }
