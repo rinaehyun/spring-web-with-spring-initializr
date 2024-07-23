@@ -1,7 +1,6 @@
 package com.example.spring_web_with_spring_initializr.AsterixAPI;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ContextConfiguration
+//@ContextConfiguration
 class CharacterServiceTest {
 
     CharacterRepo characterRepo = mock(CharacterRepo.class);
@@ -66,8 +65,7 @@ class CharacterServiceTest {
 
     @Test
     void deleteCharacterByIdTest() {
-        //TODO: complete .when()
-        //doNothing().when(characterRepo.deleteById(id));
+        doNothing().when(characterRepo).deleteById("123");
         characterService.deleteCharacterById("123");
         verify(characterRepo, times(1)).deleteById("123");
     }
